@@ -15,11 +15,25 @@ app.get("/",function(req,res) {
     //send a messege to your port user
     res.render('index');
     
+
+    
 })
 
-app.get("/contact.html",function (req,res) {
+app.get("/contact",function (req,res) {
 
-    res.sendFile(__dirname+"/contact.html")
+    res.render("contact");
+    
+})
+
+app.get("/bookrent",function (req,res) {
+
+    res.render("bookrentt");
+    
+})
+
+app.get("/view",function (req,res) {
+
+    res.render("view");
     
 })
 
@@ -32,6 +46,12 @@ app.get("/contact",function (req,res) {
     
 })
 
+
+app.post("/",function (req,res) {
+
+    res.redirect("/");
+    
+})
  
 
 app.listen(3000,function(){
