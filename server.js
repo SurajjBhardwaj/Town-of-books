@@ -14,7 +14,6 @@ app.get("/",function(req,res) {
     
 })
 
-
 app.get("/contact.html",function (req,res) {
 
     res.sendFile(__dirname+"/contact.html")
