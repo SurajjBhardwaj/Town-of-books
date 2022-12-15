@@ -1,6 +1,9 @@
 const express=require("express");
 const bodyparser=require("body-parser");
+ 
 const app=express();
+
+app.set('view engine', 'ejs');
 
 app.use(express.static("public"));
 
@@ -10,7 +13,7 @@ app.use(bodyparser.urlencoded({extended : true}));
 app.get("/",function(req,res) {
 
     //send a messege to your port user
-     res.sendFile(__dirname+"/index.html");
+    res.render('index');
     
 })
 
