@@ -1,7 +1,19 @@
 const express=require("express");
 const bodyparser=require("body-parser");
+const { MongoClient, ServerApiVersion } = require('mongodb');
  
 const app=express();
+//important uri
+const uri = "mongodb+srv://surajjbhardwajj:Suraj@jyotimongo@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+//mongo connection
+client.connect(err => {
+      const collection = client.db("test").collection("devices");
+      // perform actions on the collection object
+      console.log("connected successfully");
+      client.close();
+    });
 
 app.set('view engine', 'ejs');
 
@@ -25,7 +37,7 @@ app.get("/contact",function (req,res) {
     
 })
 
-app.get("/bookrent",function (req,res) {
+app.get("/bookrentt",function (req,res) {
 
     res.render("bookrentt");
     
@@ -60,3 +72,19 @@ app.listen(3000,function(){
 console.log("your server is ready to request");
 
 })
+
+
+
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+// const uri = "mongodb+srv://surajjbhardwajj:<password>@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
+//   // perform actions on the collection object
+//   client.close();
+// });
+
+
+
+
+//const uri = "mongodb+srv://surajjbhardwajj:Suraj@jyotimongo@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
