@@ -1,8 +1,16 @@
 const express=require("express");
 const bodyparser=require("body-parser");
+// const Users=require('./config');
+
+
+//for mongo
 const { MongoClient, ServerApiVersion } = require('mongodb');
+//const User = require("./config");
+ 
  
 const app=express();
+
+
 //important uri
 const uri = "mongodb+srv://surajjbhardwajj:Suraj@jyotimongo@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -37,6 +45,15 @@ app.get("/contact",function (req,res) {
     
 })
 
+// app.post("/contact", async(req,res) => {
+
+//     const data=req.body;
+//     await Users.add(data)
+//     res.send({msg: "added data"});
+
+    
+// })
+
 app.get("/bookrentt",function (req,res) {
 
     res.render("bookrentt");
@@ -66,7 +83,7 @@ app.post("/",function (req,res) {
 })
  
 
-app.listen(3000,function(){
+app.listen(5000,function(){
 
  
 console.log("your server is ready to request");
