@@ -7,7 +7,7 @@ const MongoClient = require('mongodb').MongoClient;
 
 // const mongoose = require("mongoose");
 
-const uri = "mongodb+srv://surajjbhardwajj:Suraj%40jyotimongo@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
+const uri = "mongodb+srv://surajjbhardwajj:<password>@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
 
 
 // mongoose.connect("mongodb://127.0.1:27017/admin", {
