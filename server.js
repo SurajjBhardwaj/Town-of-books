@@ -3,29 +3,33 @@ const bodyparser = require("body-parser");
 // const Users=require('./config');
 
 //for mongo
-const mongoose = require("mongoose");
+const MongoClient = require('mongodb').MongoClient;
+
+// const mongoose = require("mongoose");
+
+const uri = "mongodb+srv://surajjbhardwajj:Suraj%40jyotimongo@cluster0.walpukq.mongodb.net/?retryWrites=true&w=majority";
 
 
+// mongoose.connect("mongodb://127.0.1:27017/admin", {
+//    useNewUrlParser: true,
+//    useUnifiedTopology: true
+// });
 
-mongoose.connect("mongodb://127.0.1:27017/admin", {
-   useNewUrlParser: true,
-   useUnifiedTopology: true
-});
+// const Schema=mongoose.Schema;
 
-const Schema=mongoose.Schema;
+// const contactSchema = new Schema({
+//   name: String,
+//   email: String,
+//   subject: String,
+//   messege: String,
+// }); 
 
-const contactSchema = new Schema({
-  name: String,
-  email: String,
-  subject: String,
-  messege: String,
-}); 
-
-const Contact = mongoose.model("Contact", contactSchema);
+// const Contact = mongoose.model("Contact", contactSchema);
 
 
 
 const app = express();
+let alert = require('alert'); 
 
 
 //important uri
@@ -54,32 +58,54 @@ app.get("/contact", function (req, res) {
 });
 
 app.post("/contact", function (req, res) {
-  var contact = contactSchema;  
-  
-    contact.name = req.body.namee,
-    contact.email = req.body.email,
-    contact.subject = req.body.subject,
-    contact.messege = req.body.messege,
-
+   var contact = {
+    name : req.body.name,
+    email : req.body.email,
+    subject : req.body.subject,
+    messege : req.body.messege
+   };
 
   // if(contact.name === "" || contact.messege === "") {
   //   res.send("please fill the data properly");
   // }
 
   console.log(contact);
-   
-  contact.save(function (err) {
+  MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
     if (err) {
-        console.log("error is found");
-        res.redirect("/contact");
-    } else {
-        res.redirect("/");
+      console.error(err);
+      res.status(500).send(err);
+      return;
     }
+    const collection = client.db("test").collection("CONTACT");
+    collection.insertOne(contact, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send(err);
+        return;
+      }
+      alert('thank you we will contact you very soon');
+       res.redirect("/");
+      client.close();
+
+    });
+// app.post('/saveData', (req, res) => {
+ 
+//     });
+  
+});
+   
+  // contact.save(function (err) {
+  //   if (err) {
+  //       console.log("error is found");
+  //       res.redirect("/contact");
+  //   } else {
+  //       res.redirect("/");
+  //   }
 });
 
   // res.redirect("/");
 
-});
+// });
   // new Collection('clusterO').insert(data,(res,err)=>{
   //     if(err){
   //         console.log("error found")
@@ -123,9 +149,9 @@ app.get("/view", function (req, res) {
   res.render("view");
 });
 
-app.get("/contact", function (req, res) {
-  res.send("how are you !! ");
-});
+// app.get("/contact", function (req, res) {
+//   res.send("how are you !! ");
+// });
 
 app.post("/", function (req, res) {
   res.redirect("/");
